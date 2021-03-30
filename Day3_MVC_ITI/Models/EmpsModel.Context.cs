@@ -16,7 +16,7 @@ namespace Day3_MVC_ITI.Models
     public partial class EMPLOYEESEntities : DbContext
     {
         public EMPLOYEESEntities()
-            : base("name=EMPLOYEESEntities")
+            : base("name=EMPLOYEESEntities1")
         {
         }
     
@@ -25,6 +25,7 @@ namespace Day3_MVC_ITI.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Dept> Depts { get; set; }
         public virtual DbSet<Emp> Emps { get; set; }
     }
 }

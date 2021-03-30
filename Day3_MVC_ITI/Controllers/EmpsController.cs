@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Day3_MVC_ITI.Models;
+using System.Diagnostics;
 
 namespace Day3_MVC_ITI.Controllers
 {
@@ -27,9 +28,9 @@ namespace Day3_MVC_ITI.Controllers
         public ActionResult Index(int? id)
         {
             List<Emp> Emps = Context.Emps.ToList();
-            SelectList deps = new SelectList(Context.Emps.Select(E => E.dID).Distinct().ToList());
+            SelectList deps = new SelectList(Context.Depts.ToList(), "DeptID", "DeptName");
             ViewBag.Deps = deps;
-            if(id!= null)
+            if (id!= null)
             Emps = Context.Emps.Where(E => E.dID == id).ToList();
 
             return View(Emps);
@@ -45,7 +46,11 @@ namespace Day3_MVC_ITI.Controllers
 
         // GET: Emps/Create
         public ActionResult Create()
-        { 
+        {
+            //List<Emp> Emps = Context.Emps.ToList();
+            SelectList deps = new SelectList(Context.Depts.ToList(), "DeptID", "DeptName");
+            ViewBag.Deps = deps;
+
             return View();
         }
 
@@ -69,7 +74,10 @@ namespace Day3_MVC_ITI.Controllers
         // GET: Emps/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            SelectList deps = new SelectList(Context.Depts.ToList(), "DeptID", "DeptName");
+            ViewBag.Deps = deps;
+            Emp E = Context.Emps.Find(id);
+            return View(E);
         }
 
         // POST: Emps/Edit/5
@@ -100,22 +108,25 @@ namespace Day3_MVC_ITI.Controllers
         public ActionResult Delete(int id)
         {
            
-            return View((Emp)Context.Emps.Find(id));
+            return View(Context.Emps.Find(id));
         }
 
         // POST: Emps/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, Emp emp)
         {
             try
             {
-                Context.Emps.Remove(Context.Emps.Where(E => E.EmpID == id).FirstOrDefault());
+                Emp Em = Context.Emps.Find(id);
+                Context.Emps.Remove(Em);
+                
                 Context.SaveChanges();
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception e)
             {
+                Trace.WriteLine(e);
                 return View();
             }
         }

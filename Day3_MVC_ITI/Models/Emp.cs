@@ -21,5 +21,7 @@ namespace Day3_MVC_ITI.Models
         public Nullable<System.DateTime> EmpHDate { get; set; }
         public int dID { get; set; }
         public Nullable<int> CtyID { get; set; }
+    
+        public virtual Dept Dept { get; set; }
     }
 }

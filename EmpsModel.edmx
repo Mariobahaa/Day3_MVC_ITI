@@ -5,14 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="EMPLOYEESModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Depts">
-          <Key>
-            <PropertyRef Name="DeptID" />
-          </Key>
-          <Property Name="DeptID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DeptName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="DeptDesc" Type="nvarchar" MaxLength="50" />
-        </EntityType>
         <EntityType Name="Emps">
           <Key>
             <PropertyRef Name="EmpID" />
@@ -25,40 +17,14 @@
           <Property Name="dID" Type="int" Nullable="false" />
           <Property Name="CtyID" Type="int" />
         </EntityType>
-        <Association Name="FK_Emps_Depts">
-          <End Role="Depts" Type="Self.Depts" Multiplicity="1" />
-          <End Role="Emps" Type="Self.Emps" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Depts">
-              <PropertyRef Name="DeptID" />
-            </Principal>
-            <Dependent Role="Emps">
-              <PropertyRef Name="dID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="EMPLOYEESModelStoreContainer">
-          <EntitySet Name="Depts" EntityType="Self.Depts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Emps" EntityType="Self.Emps" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Emps_Depts" Association="Self.FK_Emps_Depts">
-            <End Role="Depts" EntitySet="Depts" />
-            <End Role="Emps" EntitySet="Emps" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EMPLOYEESModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Dept">
-          <Key>
-            <PropertyRef Name="DeptID" />
-          </Key>
-          <Property Name="DeptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DeptName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DeptDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Emps" Relationship="Self.FK_Emps_Depts" FromRole="Depts" ToRole="Emps" />
-        </EntityType>
         <EntityType Name="Emp">
           <Key>
             <PropertyRef Name="EmpID" />
@@ -70,43 +36,16 @@
           <Property Name="EmpHDate" Type="DateTime" Precision="0" />
           <Property Name="dID" Type="Int32" Nullable="false" />
           <Property Name="CtyID" Type="Int32" />
-          <NavigationProperty Name="Dept" Relationship="Self.FK_Emps_Depts" FromRole="Emps" ToRole="Depts" />
         </EntityType>
-        <Association Name="FK_Emps_Depts">
-          <End Role="Depts" Type="Self.Dept" Multiplicity="1" />
-          <End Role="Emps" Type="Self.Emp" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Depts">
-              <PropertyRef Name="DeptID" />
-            </Principal>
-            <Dependent Role="Emps">
-              <PropertyRef Name="dID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="EMPLOYEESEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Depts" EntityType="Self.Dept" />
+        <EntityContainer Name="EMPLOYEESEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Emps" EntityType="Self.Emp" />
-          <AssociationSet Name="FK_Emps_Depts" Association="Self.FK_Emps_Depts">
-            <End Role="Depts" EntitySet="Depts" />
-            <End Role="Emps" EntitySet="Emps" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="EMPLOYEESModelStoreContainer" CdmEntityContainer="EMPLOYEESEntities1">
-          <EntitySetMapping Name="Depts">
-            <EntityTypeMapping TypeName="EMPLOYEESModel.Dept">
-              <MappingFragment StoreEntitySet="Depts">
-                <ScalarProperty Name="DeptID" ColumnName="DeptID" />
-                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
-                <ScalarProperty Name="DeptDesc" ColumnName="DeptDesc" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+        <EntityContainerMapping StorageEntityContainer="EMPLOYEESModelStoreContainer" CdmEntityContainer="EMPLOYEESEntities">
           <EntitySetMapping Name="Emps">
             <EntityTypeMapping TypeName="EMPLOYEESModel.Emp">
               <MappingFragment StoreEntitySet="Emps">

@@ -133,6 +133,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Dept.cs">
+      <DependentUpon>EmpsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Emp.cs">
       <DependentUpon>EmpsModel.tt</DependentUpon>
     </Compile>
@@ -164,8 +167,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Models\EmpsModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EmpsModel.Context.cs</LastGenOutput>
       <DependentUpon>EmpsModel.edmx</DependentUpon>
+      <LastGenOutput>EmpsModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\EmpsModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
