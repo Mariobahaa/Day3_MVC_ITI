@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EMPLOYEESModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Emp">
+    <Key>
+      <PropertyRef Name="EmpID" />
+    </Key>
+    <Property Name="EmpID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpFname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EmpLname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EmpSalary" Type="Double" />
+    <Property Name="EmpHDate" Type="DateTime" Precision="0" />
+    <Property Name="dID" Type="Int32" Nullable="false" />
+    <Property Name="CtyID" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="EMPLOYEESEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Emps" EntityType="Self.Emp" />
+  </EntityContainer>
+</Schema>
