@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    SelectList Deps = ViewBag.deps;
 }
 
 <h2>Index</h2>
@@ -9,6 +10,21 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<br />
+
+<form action="#" method="get">
+    <label for="filter">Department: </label>
+    @Html.DropDownList("id", (SelectList)Deps,"All", htmlAttributes: new
+{
+    @class = "form-control",
+    @id  = "id", 
+    @name = "id"
+})
+    <br />
+    <button type="submit" class="btn">Filter</button>
+
+</form>
+<br />
 <table class="table">
     <tr>
         <th>
@@ -32,32 +48,33 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmpFname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmpLname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmpSalary)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmpHDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CtyID)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EmpID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EmpID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EmpID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpFname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpLname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpSalary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpHDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CtyID)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.EmpID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.EmpID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.EmpID })
+            </td>
+        </tr>
+    }
 
 </table>

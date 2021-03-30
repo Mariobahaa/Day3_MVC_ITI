@@ -12,12 +12,29 @@ namespace Day3_MVC_ITI.Controllers
     {
         EMPLOYEESEntities Context = new EMPLOYEESEntities();
         // GET: Emps
-        public ActionResult Index()
+        /*
+        public ActionResult Index(int)
         {
             List<Emp> Emps = Context.Emps.ToList();
+            SelectList deps = new SelectList( Context.Emps.Select(E => E.dID).Distinct().ToList());
+            //deps.Add(new SelectListItem('*')); 
+            ViewBag.Deps = deps;
 
             return View(Emps);
         }
+*/
+   
+        public ActionResult Index(int? id)
+        {
+            List<Emp> Emps = Context.Emps.ToList();
+            SelectList deps = new SelectList(Context.Emps.Select(E => E.dID).Distinct().ToList());
+            ViewBag.Deps = deps;
+            if(id!= null)
+            Emps = Context.Emps.Where(E => E.dID == id).ToList();
+
+            return View(Emps);
+        }
+
 
         // GET: Emps/Details/5
         public ActionResult Details(int id)
